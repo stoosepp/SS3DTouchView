@@ -1,0 +1,72 @@
+func updateShadowPathWithAmount(amount:CGFloat){
+
+let newButtonPath = CGPathCreateWithRect(CGRect(x: bounds.origin.x + (maxShadowOffset.width * amount), y: bounds.origin.y + (maxShadowOffset.height * amount), width: bounds.width, height: bounds.height), nil)
+buttonShapeLayer.path = newButtonPath
+buttonShapeLayer.fillColor = UIColor.redColor().CGColor
+backgroundColor = UIColor.clearColor()
+
+let newShadowPath = CGPathCreateMutable()
+//Button Corner
+let topLeftPointx: CGFloat = 0.0
+let topLeftPointy: CGFloat = 0.0
+let topRightPointx = frame.size.width
+let topRightPointy: CGFloat = 0.0
+let bottomLeftPointx: CGFloat = 0.0
+let bottomLeftPointy = frame.size.height
+let bottomRightPointx = frame.size.width
+let bottomRightPointy = frame.size.height
+
+
+let widthOffset = maxShadowOffset.width - (maxShadowOffset.width * amount)
+let heightOffset = maxShadowOffset.height - (maxShadowOffset.height * amount)
+
+//Shadow Corners
+let topLeftShadowPointx = widthOffset
+let topLeftShadowPointy = heightOffset
+let topRightShadowPointx = topRightPointx + widthOffset
+let topRightShadowPointy = topRightPointy + heightOffset
+let bottomLeftShadowPointx = bottomLeftPointx + widthOffset
+let bottomLeftShadowPointy = bottomLeftPointy + heightOffset
+let bottomRightShadowPointx = bottomRightPointx + widthOffset
+let bottomRightShadowPointy = bottomRightPointy + heightOffset
+
+if maxShadowOffset.width > 0 && maxShadowOffset.height > 0
+{
+//print("Shadow on Bottom Right")
+CGPathMoveToPoint(newShadowPath, nil, topRightPointx, topRightPointy) //Top Right
+CGPathAddLineToPoint(newShadowPath, nil, topRightShadowPointx, topRightShadowPointy)//Shadow of Top Right
+CGPathAddLineToPoint(newShadowPath, nil, bottomRightShadowPointx, bottomRightShadowPointy) //Shadow of Bottom Right
+CGPathAddLineToPoint(newShadowPath, nil, bottomLeftShadowPointx, bottomLeftShadowPointy) //Shadow of Bottom Left
+CGPathAddLineToPoint(newShadowPath, nil, bottomLeftPointx, bottomLeftPointy) //Bottom Left
+CGPathAddLineToPoint(newShadowPath, nil, bottomRightPointx, bottomRightPointy) //Bottom Right
+}
+else if maxShadowOffset.width < 0 && maxShadowOffset.height < 0
+{
+print("Shadow on Top Left")
+CGPathMoveToPoint(newShadowPath, nil, topRightPointx, topRightPointy) //Top Right
+CGPathAddLineToPoint(newShadowPath, nil, topRightShadowPointx, topRightShadowPointy )//Shadow of Top Right
+CGPathAddLineToPoint(newShadowPath, nil, topLeftShadowPointx, topLeftShadowPointy) //Shadow of Top Left
+CGPathAddLineToPoint(newShadowPath, nil, bottomLeftShadowPointx, bottomLeftShadowPointy) //Shadow of Bottom Left
+CGPathAddLineToPoint(newShadowPath, nil, bottomLeftPointx, bottomLeftPointy) //Bottom Left
+CGPathAddLineToPoint(newShadowPath, nil, topLeftPointx, topLeftPointy) //Top Left
+}
+else if maxShadowOffset.width > 0 && maxShadowOffset.height < 0{
+print("Shadow on Top Right")
+CGPathMoveToPoint(newShadowPath, nil, topRightPointx, topRightPointy) //Top Right
+CGPathAddLineToPoint(newShadowPath, nil, bottomRightPointx, bottomRightPointy) //Bottomr Right
+CGPathAddLineToPoint(newShadowPath, nil, bottomRightShadowPointx, bottomRightShadowPointy) //Shadow of Bottom Right
+CGPathAddLineToPoint(newShadowPath, nil, topRightShadowPointx, topRightShadowPointy)//Shadow of Top Right
+CGPathAddLineToPoint(newShadowPath, nil, topLeftShadowPointx, topLeftShadowPointy) //Shadow of Top Left
+CGPathAddLineToPoint(newShadowPath, nil, topLeftPointx, topLeftPointy) //Top Left
+}
+else if maxShadowOffset.width < 0 && maxShadowOffset.height > 0{
+print("Shadow on Top Right")
+CGPathMoveToPoint(newShadowPath, nil, topLeftPointx, topLeftPointx) //Top Left
+CGPathAddLineToPoint(newShadowPath, nil, topLeftShadowPointx, topLeftShadowPointy) //Shadow of Top Left
+CGPathAddLineToPoint(newShadowPath, nil, bottomLeftShadowPointx, bottomLeftShadowPointy) //Shadow of Bottom Left
+CGPathAddLineToPoint(newShadowPath, nil, bottomRightShadowPointx, bottomRightShadowPointy) //Shadow of Bottom Right
+CGPathAddLineToPoint(newShadowPath, nil, bottomRightPointx, bottomRightPointy) //Bottomr Right
+CGPathAddLineToPoint(newShadowPath, nil, bottomLeftPointx, bottomLeftPointy) //Bottom Left
+}
+shadowShapeLayer.path = newShadowPath
+}

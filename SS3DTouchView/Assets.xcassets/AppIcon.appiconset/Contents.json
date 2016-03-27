@@ -1,8 +1,9 @@
 {
   "images" : [
     {
-      "idiom" : "iphone",
       "size" : "29x29",
+      "idiom" : "iphone",
+      "filename" : "Screen Shot 2016-03-27 at 3.53.28 PM.png",
       "scale" : "2x"
     },
     {
@@ -58,6 +59,11 @@
     {
       "idiom" : "ipad",
       "size" : "76x76",
+      "scale" : "2x"
+    },
+    {
+      "idiom" : "ipad",
+      "size" : "83.5x83.5",
       "scale" : "2x"
     }
   ],

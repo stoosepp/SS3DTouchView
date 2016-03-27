@@ -7,13 +7,20 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD6AD48B1C5DB1A500629544 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6AD48A1C5DB1A500629544 /* UIColor+RGB.swift */; };
+		DD6AD48F1C5E387B00629544 /* PathMovement in Resources */ = {isa = PBXBuildFile; fileRef = DD6AD48E1C5E387B00629544 /* PathMovement */; };
 		DD70D44B1C40857600D5BB0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD70D44A1C40857600D5BB0C /* AppDelegate.swift */; };
-		DD70D44D1C40857600D5BB0C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD70D44C1C40857600D5BB0C /* ViewController.swift */; };
-		DD70D4501C40857600D5BB0C /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD70D44E1C40857600D5BB0C /* Main.storyboard */; };
 		DD70D4521C40857600D5BB0C /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DD70D4511C40857600D5BB0C /* Assets.xcassets */; };
 		DD70D4551C40857600D5BB0C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD70D4531C40857600D5BB0C /* LaunchScreen.storyboard */; };
 		DD70D4601C40857700D5BB0C /* SS3DTouchViewTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD70D45F1C40857700D5BB0C /* SS3DTouchViewTests.swift */; };
 		DD70D46B1C40857700D5BB0C /* SS3DTouchViewUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD70D46A1C40857700D5BB0C /* SS3DTouchViewUITests.swift */; };
+		DD70D4791C40860A00D5BB0C /* ForceButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD70D4781C40860A00D5BB0C /* ForceButton.swift */; };
+		DD7F343F1C4466F1008BD77A /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7F343E1C4466F1008BD77A /* ViewController.swift */; };
+		DD7F34421C446700008BD77A /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DD7F34401C446700008BD77A /* Main.storyboard */; };
+		DD7F34441C447919008BD77A /* UITouch+3DTouch.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD7F34431C447919008BD77A /* UITouch+3DTouch.swift */; };
+		DD920B051CA65B4E00DB3471 /* LinearProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD920B041CA65B4E00DB3471 /* LinearProgressView.swift */; };
+		DD920B071CA660CA00DB3471 /* CProgressView.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD920B061CA660CA00DB3471 /* CProgressView.swift */; };
+		DDF529511C443F420069A01B /* ForceGestureRecognizer.swift in Sources */ = {isa = PBXBuildFile; fileRef = DDF529501C443F420069A01B /* ForceGestureRecognizer.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,10 +41,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DD6AD48A1C5DB1A500629544 /* UIColor+RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
+		DD6AD48E1C5E387B00629544 /* PathMovement */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PathMovement; sourceTree = "<group>"; };
 		DD70D4471C40857600D5BB0C /* SS3DTouchView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SS3DTouchView.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD70D44A1C40857600D5BB0C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
-		DD70D44C1C40857600D5BB0C /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
-		DD70D44F1C40857600D5BB0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
 		DD70D4511C40857600D5BB0C /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		DD70D4541C40857600D5BB0C /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DD70D4561C40857600D5BB0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -47,6 +54,13 @@
 		DD70D4661C40857700D5BB0C /* SS3DTouchViewUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = SS3DTouchViewUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DD70D46A1C40857700D5BB0C /* SS3DTouchViewUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SS3DTouchViewUITests.swift; sourceTree = "<group>"; };
 		DD70D46C1C40857700D5BB0C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DD70D4781C40860A00D5BB0C /* ForceButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceButton.swift; sourceTree = "<group>"; };
+		DD7F343E1C4466F1008BD77A /* ViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		DD7F34411C446700008BD77A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		DD7F34431C447919008BD77A /* UITouch+3DTouch.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UITouch+3DTouch.swift"; sourceTree = "<group>"; };
+		DD920B041CA65B4E00DB3471 /* LinearProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = LinearProgressView.swift; sourceTree = "<group>"; };
+		DD920B061CA660CA00DB3471 /* CProgressView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CProgressView.swift; path = ../CProgressView.swift; sourceTree = "<group>"; };
+		DDF529501C443F420069A01B /* ForceGestureRecognizer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ForceGestureRecognizer.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -97,9 +111,13 @@
 		DD70D4491C40857600D5BB0C /* SS3DTouchView */ = {
 			isa = PBXGroup;
 			children = (
+				DD920B081CA660EC00DB3471 /* Supporting Classes */,
+				DD7F34401C446700008BD77A /* Main.storyboard */,
+				DD7F343E1C4466F1008BD77A /* ViewController.swift */,
+				DD70D4781C40860A00D5BB0C /* ForceButton.swift */,
 				DD70D44A1C40857600D5BB0C /* AppDelegate.swift */,
-				DD70D44C1C40857600D5BB0C /* ViewController.swift */,
-				DD70D44E1C40857600D5BB0C /* Main.storyboard */,
+				DD6AD48E1C5E387B00629544 /* PathMovement */,
+				DDF529501C443F420069A01B /* ForceGestureRecognizer.swift */,
 				DD70D4511C40857600D5BB0C /* Assets.xcassets */,
 				DD70D4531C40857600D5BB0C /* LaunchScreen.storyboard */,
 				DD70D4561C40857600D5BB0C /* Info.plist */,
@@ -123,6 +141,17 @@
 				DD70D46C1C40857700D5BB0C /* Info.plist */,
 			);
 			path = SS3DTouchViewUITests;
+			sourceTree = "<group>";
+		};
+		DD920B081CA660EC00DB3471 /* Supporting Classes */ = {
+			isa = PBXGroup;
+			children = (
+				DD920B041CA65B4E00DB3471 /* LinearProgressView.swift */,
+				DD920B061CA660CA00DB3471 /* CProgressView.swift */,
+				DD7F34431C447919008BD77A /* UITouch+3DTouch.swift */,
+				DD6AD48A1C5DB1A500629544 /* UIColor+RGB.swift */,
+			);
+			name = "Supporting Classes";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -193,6 +222,7 @@
 				TargetAttributes = {
 					DD70D4461C40857600D5BB0C = {
 						CreatedOnToolsVersion = 7.2;
+						DevelopmentTeam = SKVPMKVP5H;
 					};
 					DD70D45A1C40857700D5BB0C = {
 						CreatedOnToolsVersion = 7.2;
@@ -229,9 +259,10 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DD6AD48F1C5E387B00629544 /* PathMovement in Resources */,
+				DD7F34421C446700008BD77A /* Main.storyboard in Resources */,
 				DD70D4551C40857600D5BB0C /* LaunchScreen.storyboard in Resources */,
 				DD70D4521C40857600D5BB0C /* Assets.xcassets in Resources */,
-				DD70D4501C40857600D5BB0C /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -256,8 +287,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DD70D44D1C40857600D5BB0C /* ViewController.swift in Sources */,
+				DDF529511C443F420069A01B /* ForceGestureRecognizer.swift in Sources */,
+				DD920B071CA660CA00DB3471 /* CProgressView.swift in Sources */,
+				DD6AD48B1C5DB1A500629544 /* UIColor+RGB.swift in Sources */,
 				DD70D44B1C40857600D5BB0C /* AppDelegate.swift in Sources */,
+				DD920B051CA65B4E00DB3471 /* LinearProgressView.swift in Sources */,
+				DD7F343F1C4466F1008BD77A /* ViewController.swift in Sources */,
+				DD70D4791C40860A00D5BB0C /* ForceButton.swift in Sources */,
+				DD7F34441C447919008BD77A /* UITouch+3DTouch.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -293,20 +330,20 @@
 /* End PBXTargetDependency section */
 
 /* Begin PBXVariantGroup section */
-		DD70D44E1C40857600D5BB0C /* Main.storyboard */ = {
-			isa = PBXVariantGroup;
-			children = (
-				DD70D44F1C40857600D5BB0C /* Base */,
-			);
-			name = Main.storyboard;
-			sourceTree = "<group>";
-		};
 		DD70D4531C40857600D5BB0C /* LaunchScreen.storyboard */ = {
 			isa = PBXVariantGroup;
 			children = (
 				DD70D4541C40857600D5BB0C /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		DD7F34401C446700008BD77A /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				DD7F34411C446700008BD77A /* Base */,
+			);
+			name = Main.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -399,10 +436,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SS3DTouchView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Debug;
 		};
@@ -410,10 +450,13 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				INFOPLIST_FILE = SS3DTouchView/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "";
 			};
 			name = Release;
 		};
@@ -484,6 +527,7 @@
 				DD70D4711C40857700D5BB0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DD70D4721C40857700D5BB0C /* Build configuration list for PBXNativeTarget "SS3DTouchViewTests" */ = {
 			isa = XCConfigurationList;
@@ -492,6 +536,7 @@
 				DD70D4741C40857700D5BB0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DD70D4751C40857700D5BB0C /* Build configuration list for PBXNativeTarget "SS3DTouchViewUITests" */ = {
 			isa = XCConfigurationList;
@@ -500,6 +545,7 @@
 				DD70D4771C40857700D5BB0C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

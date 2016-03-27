@@ -1,13 +1,15 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="6211" systemVersion="14A298i" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="10116" systemVersion="15E65" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="BYZ-38-t0r">
     <dependencies>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="6204"/>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="10085"/>
+        <capability name="Constraints to layout margins" minToolsVersion="6.0"/>
     </dependencies>
     <scenes>
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="SS3DTouchView" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -15,11 +17,82 @@
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C2b-xW-ECk" customClass="ForceButton" customModule="SS3DTouchView" customModuleProvider="target">
+                                <rect key="frame" x="156" y="241" width="289" height="118"/>
+                                <color key="backgroundColor" red="0.0" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="289" id="PIm-ND-j6V"/>
+                                    <constraint firstAttribute="height" constant="118" id="jKh-Mo-mRo"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomHitVisibleonButton" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="bottomHitVisibleOnBG" value="NO"/>
+                                    <userDefinedRuntimeAttribute type="boolean" keyPath="vibratesOnBottomHit" value="NO"/>
+                                </userDefinedRuntimeAttributes>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="MyS-6b-nfl">
+                                <rect key="frame" x="38" y="537" width="525" height="29"/>
+                                <segments>
+                                    <segment title="Above"/>
+                                    <segment title="Below"/>
+                                    <segment title="Flat"/>
+                                    <segment title="Pin"/>
+                                    <segment title="Bar"/>
+                                    <segment title="Circle"/>
+                                    <segment title="Barn"/>
+                                </segments>
+                                <connections>
+                                    <action selector="updateButton:" destination="BYZ-38-t0r" eventType="valueChanged" id="bDG-5D-bTw"/>
+                                </connections>
+                            </segmentedControl>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" misplaced="YES" text="0.00%" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="05Y-g5-Yol">
+                                <rect key="frame" x="246" y="206" width="108" height="29"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="108" id="BDu-N9-dZP"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" name="Georgia" family="Georgia" pointSize="25"/>
+                                <color key="textColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <switch opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" contentHorizontalAlignment="center" contentVerticalAlignment="center" translatesAutoresizingMaskIntoConstraints="NO" id="5gY-Ks-uim">
+                                <rect key="frame" x="276" y="28" width="51" height="31"/>
+                                <color key="tintColor" red="0.0" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <color key="onTintColor" red="1" green="0.0" blue="0.0" alpha="1" colorSpace="calibratedRGB"/>
+                                <connections>
+                                    <action selector="toggleBottomHit:" destination="BYZ-38-t0r" eventType="valueChanged" id="d58-h0-kDC"/>
+                                </connections>
+                            </switch>
+                        </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="5gY-Ks-uim" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="BgU-1Q-hOg"/>
+                            <constraint firstItem="wfy-db-euE" firstAttribute="top" secondItem="MyS-6b-nfl" secondAttribute="bottom" constant="35" id="S4W-Vq-TQ5"/>
+                            <constraint firstItem="C2b-xW-ECk" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="Y03-Uc-45V"/>
+                            <constraint firstItem="C2b-xW-ECk" firstAttribute="top" secondItem="05Y-g5-Yol" secondAttribute="bottom" constant="8" id="YIr-db-4XQ"/>
+                            <constraint firstItem="5gY-Ks-uim" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="dY0-VH-bj8"/>
+                            <constraint firstItem="C2b-xW-ECk" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="ioh-vk-tdV"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="MyS-6b-nfl" secondAttribute="trailing" constant="17" id="jPF-UW-Qfr"/>
+                            <constraint firstItem="5gY-Ks-uim" firstAttribute="top" secondItem="y3c-jy-aDJ" secondAttribute="bottom" constant="8" id="nte-Tp-H3q"/>
+                            <constraint firstItem="5gY-Ks-uim" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="p5k-VD-Q9j"/>
+                            <constraint firstItem="05Y-g5-Yol" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="pS9-Cf-tjX"/>
+                            <constraint firstItem="MyS-6b-nfl" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leadingMargin" constant="18" id="w99-JK-fFv"/>
+                        </constraints>
+                        <variation key="default">
+                            <mask key="constraints">
+                                <exclude reference="BgU-1Q-hOg"/>
+                                <exclude reference="dY0-VH-bj8"/>
+                            </mask>
+                        </variation>
                     </view>
+                    <connections>
+                        <outlet property="forceButton" destination="C2b-xW-ECk" id="YAp-3D-cfd"/>
+                        <outlet property="forceLabel" destination="05Y-g5-Yol" id="8WX-Hl-Yg2"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
+            <point key="canvasLocation" x="288" y="309"/>
         </scene>
     </scenes>
 </document>
