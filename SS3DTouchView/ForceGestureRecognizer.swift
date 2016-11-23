@@ -13,31 +13,31 @@ class ForceGestureRecognizer: UIGestureRecognizer {
     var depthValue: CGFloat = 0
     var depthValuePercent: CGFloat = 0
     
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent) {
-        super.touchesBegan(touches, withEvent: event)
-        state = .Began
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesBegan(touches, with: event)
+        state = .began
         handleForceWithTouches(touches)
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent) {
-        super.touchesMoved(touches, withEvent: event)
-        state = .Changed
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesMoved(touches, with: event)
+        state = .changed
         handleForceWithTouches(touches)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent) {
-        super.touchesEnded(touches, withEvent: event)
-        state = .Ended
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent) {
+        super.touchesEnded(touches, with: event)
+        state = .ended
         handleForceWithTouches(touches)
     }
     
-    func handleForceWithTouches(touches: Set<UITouch>) {
+    func handleForceWithTouches(_ touches: Set<UITouch>) {
         if touches.count != 1 {
-            state = .Failed
+            state = .failed
             return
         }
         guard let touch = touches.first else {
-            state = .Failed
+            state = .failed
             return
         }
         depthValue = touch.force

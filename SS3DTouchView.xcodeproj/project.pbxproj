@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DD15F1811DE530D00074E3A5 /* UIView+Blur.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD15F1801DE530D00074E3A5 /* UIView+Blur.swift */; };
 		DD6AD48B1C5DB1A500629544 /* UIColor+RGB.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD6AD48A1C5DB1A500629544 /* UIColor+RGB.swift */; };
 		DD6AD48F1C5E387B00629544 /* PathMovement in Resources */ = {isa = PBXBuildFile; fileRef = DD6AD48E1C5E387B00629544 /* PathMovement */; };
 		DD70D44B1C40857600D5BB0C /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = DD70D44A1C40857600D5BB0C /* AppDelegate.swift */; };
@@ -41,6 +42,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		DD15F1801DE530D00074E3A5 /* UIView+Blur.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIView+Blur.swift"; sourceTree = "<group>"; };
 		DD6AD48A1C5DB1A500629544 /* UIColor+RGB.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "UIColor+RGB.swift"; sourceTree = "<group>"; };
 		DD6AD48E1C5E387B00629544 /* PathMovement */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = PathMovement; sourceTree = "<group>"; };
 		DD70D4471C40857600D5BB0C /* SS3DTouchView.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SS3DTouchView.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,6 +152,7 @@
 				DD920B061CA660CA00DB3471 /* CProgressView.swift */,
 				DD7F34431C447919008BD77A /* UITouch+3DTouch.swift */,
 				DD6AD48A1C5DB1A500629544 /* UIColor+RGB.swift */,
+				DD15F1801DE530D00074E3A5 /* UIView+Blur.swift */,
 			);
 			name = "Supporting Classes";
 			sourceTree = "<group>";
@@ -217,19 +220,22 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0720;
-				LastUpgradeCheck = 0720;
+				LastUpgradeCheck = 0810;
 				ORGANIZATIONNAME = Monotreme;
 				TargetAttributes = {
 					DD70D4461C40857600D5BB0C = {
 						CreatedOnToolsVersion = 7.2;
 						DevelopmentTeam = SKVPMKVP5H;
+						LastSwiftMigration = 0810;
 					};
 					DD70D45A1C40857700D5BB0C = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0810;
 						TestTargetID = DD70D4461C40857600D5BB0C;
 					};
 					DD70D4651C40857700D5BB0C = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 0810;
 						TestTargetID = DD70D4461C40857600D5BB0C;
 					};
 				};
@@ -288,6 +294,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				DDF529511C443F420069A01B /* ForceGestureRecognizer.swift in Sources */,
+				DD15F1811DE530D00074E3A5 /* UIView+Blur.swift in Sources */,
 				DD920B071CA660CA00DB3471 /* CProgressView.swift in Sources */,
 				DD6AD48B1C5DB1A500629544 /* UIColor+RGB.swift in Sources */,
 				DD70D44B1C40857600D5BB0C /* AppDelegate.swift in Sources */,
@@ -362,8 +369,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -407,8 +416,10 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_EMPTY_BODY = YES;
 				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
@@ -427,6 +438,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -443,6 +455,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -457,6 +470,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchView;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
+				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -468,6 +482,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchViewTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SS3DTouchView.app/SS3DTouchView";
 			};
 			name = Debug;
@@ -480,6 +495,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchViewTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/SS3DTouchView.app/SS3DTouchView";
 			};
 			name = Release;
@@ -491,6 +507,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchViewUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = SS3DTouchView;
 				USES_XCTRUNNER = YES;
 			};
@@ -503,6 +520,7 @@
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = monotreme.SS3DTouchViewUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 3.0;
 				TEST_TARGET_NAME = SS3DTouchView;
 				USES_XCTRUNNER = YES;
 			};

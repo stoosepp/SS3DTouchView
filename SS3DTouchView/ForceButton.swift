@@ -13,18 +13,21 @@ import AudioToolbox
 
 protocol SSForceButtonDelegate
 {
-    func updateForceLabel(currentforceValue: CGFloat)
+    func updateForceLabel(_ currentforceValue: CGFloat)
 }
 
 enum ForceButtonType: Int {
-    case ShadowAbove = 0
-    case FlatShadowAbove = 1
-    case ShadowBelow = 2
-    case Pincushion = 3
-    case SquareTopBorder = 4
-    case CircleBorder = 5
-    case BarnDoor = 6
-    case None = 7
+    case dropShadow = 0
+    case innerShadow = 1
+    case flatShadow = 2
+    case sizeScale = 3
+    case depthOfField = 4
+    case color = 5
+    case progressBar = 6
+    case circleProgress = 7
+    case pincushion = 8
+    case barnDoor = 9
+    case none = 10
 }
 
 
@@ -33,7 +36,7 @@ class ForceButton: UIButton {
 
     //You can Set These
     var forceButtonType: ForceButtonType
-    var shadowColor: UIColor = UIColor.darkGrayColor()
+    var shadowColor: UIColor = UIColor.darkGray
     var shadowOpacity: Float = 0.8
     var maxShadowOffset: CGSize = CGSize(width: 10, height: 10)
     var maxShadowRadius: CGFloat = 10.0
@@ -42,7 +45,7 @@ class ForceButton: UIButton {
     var bottomHit:Bool
     
     //Properties (Don't mess with these)
-    private let maxForceValue: CGFloat = 100
+    fileprivate let maxForceValue: CGFloat = 100
     let context = UIGraphicsGetCurrentContext()
     var delegate: SSForceButtonDelegate?
     var innerShadowLayer = CALayer()
@@ -59,10 +62,6 @@ class ForceButton: UIButton {
     let rightDoorLayer = CALayer()
 
     
-    
-    
-    
-    
     @IBInspectable var vibratesOnBottomHit: Bool = false{
         willSet {
         }
@@ -78,39 +77,50 @@ class ForceButton: UIButton {
     
     //Init
     required init(coder aDecoder: NSCoder) {
-        forceButtonType = .ShadowAbove
+     
+        forceButtonType = .dropShadow
         bottomHit = false
+        
         super.init(coder: aDecoder)!
 
     }
+    
     //MARK: INITIALIZE BUTTON
-    func initializeButton(withType: ForceButtonType)
+    func initializeButton(_ withType: ForceButtonType)
     {
+        backgroundColor = UIColor.darkGray
         forceButtonType = withType
         buttonCenter = center
         resetButton()
         switch withType {
-        case .ShadowAbove:
-            shadowAboveWithAmount(0.0)
+        case .dropShadow:
+            dropShadowWithAmount(0.0)
             print("Setting Up Shadow Above")
-        case .ShadowBelow:
+        case .innerShadow:
             layer.addSublayer(innerShadowLayer)
-            shadowBelowWithAmount(0.0)
+            innerShadowWithAmount(0.0)
             print("Setting Up Shadow Below")
-        case .FlatShadowAbove:
+        case .flatShadow:
             //layer.cornerRadius = 20 //Should accomodate for this
             setupFlatShadow()
-            flatShadowAboveWithAmount(0.0)
+            flatShadowWithAmount(0.0)
             print("Setting Up Flat Shadow Above")
-        case .Pincushion:
-            setupPincushionDistortion()
-        case .CircleBorder:
-            setupCircle()
-            circleWithAmount(0.0)
-        case .SquareTopBorder:
+        case .sizeScale:
+            print("To Fill in")
+            scaleWithAmount(amount: 0.0, location: "topRight")
+        case .depthOfField:
+            print("To Fill in")
+        case .color:
+            print("To Fill in")
+        case .progressBar:
             setupTopBar()
             topBarWithAmount(0.0)
-        case .BarnDoor:
+        case .circleProgress:
+            setupCircle()
+            circleWithAmount(0.0)
+        case .pincushion:
+            setupPincushionDistortion()
+        case .barnDoor:
             setupBarnDoor()
             barnDoorWithAmount(0.0)
         default:
@@ -120,7 +130,6 @@ class ForceButton: UIButton {
     
     func resetButton()
     {
-        backgroundColor = UIColor.cyanColor()
         bgColor = backgroundColor! as UIColor
         buttonCenter = center
         layer.shadowOffset.width = 0.0
@@ -132,9 +141,9 @@ class ForceButton: UIButton {
         innerShadowLayer.removeFromSuperlayer()
         flatShadowLayer.removeFromSuperlayer()
         shadowShapeLayer.path = nil
-        shadowShapeLayer.fillColor = shadowColor.CGColor
+        shadowShapeLayer.fillColor = shadowColor.cgColor
         layer.removeAllAnimations()
-        setBackgroundImage(UIImage(), forState: state)
+        setBackgroundImage(UIImage(), for: state)
         
         for view in subviews {
             view.removeFromSuperview()
@@ -147,45 +156,59 @@ class ForceButton: UIButton {
     
     override func didMoveToSuperview() {
         super.didMoveToSuperview()
-        initializeButton(.ShadowAbove)
+        initializeButton(.dropShadow)
         delegate?.updateForceLabel(0.0)
      
     }
     //MARK: HANDLE TOUCHES
-    override func touchesBegan(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesBegan(touches, withEvent: event)
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesBegan(touches, with: event)
         handleForceWithTouches(touches)
     }
     
-    override func touchesMoved(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesMoved(touches, withEvent: event)
+    override func touchesMoved(_ touches: Set<UITouch>, with event: UIEvent?) {
+        super.touchesMoved(touches, with: event)
         handleForceWithTouches(touches)
     }
     
-    override func touchesEnded(touches: Set<UITouch>, withEvent event: UIEvent?) {
-        super.touchesEnded(touches, withEvent: event)
+    override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
+        
+        super.touchesEnded(touches, with: event)
         switch forceButtonType {
-        case .ShadowAbove:
-            shadowAboveWithAmount(0.0)
-        case .ShadowBelow:
-            shadowBelowWithAmount(0.0)
-        case .FlatShadowAbove:
-            flatShadowAboveWithAmount(0.0)
-        case .Pincushion:
+        case .dropShadow:
+            dropShadowWithAmount(0.0)
+        case .innerShadow:
+            innerShadowWithAmount(0.0)
+        case .flatShadow:
+            flatShadowWithAmount(0.0)
+        case .sizeScale:
+            backgroundColor = bgColor
+        case .depthOfField:
+            blurWithAmount(0.0)
+            self.unBlur()
+        case .color:
+            darkenColorWithAmount(0.0)
+        case .pincushion:
             pincushionDistortionWithAmount(0, position: CGPoint(x: 0, y: 0))
-        case .CircleBorder:
+        case .circleProgress:
             circleWithAmount(0.0)
-        case .SquareTopBorder:
+        case .progressBar:
             topBarWithAmount(0.0)
-        case .BarnDoor:
+        case .barnDoor:
             barnDoorWithAmount(0.0)
         default:
-            shadowBelowWithAmount(0.0)
+            dropShadowWithAmount(0.0)
+        }
+        if forceButtonType == .circleProgress{
+            backgroundColor = .clear
+        }
+        else{
+              backgroundColor = bgColor
         }
         delegate?.updateForceLabel(0)
     }
     
-    func handleForceWithTouches(touches: Set<UITouch>) {
+    func handleForceWithTouches(_ touches: Set<UITouch>) {
         if touches.count != 1 {
             return
         }
@@ -193,19 +216,26 @@ class ForceButton: UIButton {
             return
         }
         switch forceButtonType {
-        case .ShadowAbove:
-            shadowAboveWithAmount(touch.strength)
-        case .ShadowBelow:
-            shadowBelowWithAmount(touch.strength)
-        case .FlatShadowAbove:
-            flatShadowAboveWithAmount(touch.strength)
-        case .Pincushion:
-            pincushionDistortionWithAmount(touch.strength, position: touch.locationInView(self))
-        case .CircleBorder:
+        case .dropShadow:
+            dropShadowWithAmount(touch.strength)
+        case .innerShadow:
+            innerShadowWithAmount(touch.strength)
+        case .flatShadow:
+            flatShadowWithAmount(touch.strength)
+        case .sizeScale:
+            scaleWithAmount(amount: touch.strength, location: "topRight")
+        case .depthOfField:
+            blurWithAmount(touch.strength)
+        case .color:
+            lightenColorWithAmount(touch.strength)
+            
+        case .pincushion:
+            pincushionDistortionWithAmount(touch.strength, position: touch.location(in: self))
+        case .circleProgress:
             circleWithAmount(touch.strength)
-        case .SquareTopBorder:
+        case .progressBar:
             topBarWithAmount(touch.strength)
-        case .BarnDoor:
+        case .barnDoor:
             barnDoorWithAmount(touch.strength)
         default:
             print("Button has no type")
@@ -214,18 +244,18 @@ class ForceButton: UIButton {
         if bottomHit == true{
             if touch.strength == 1.0
             {
-                superview!.backgroundColor = UIColor.redColor()
+                superview!.backgroundColor = UIColor.red
             }
             else{
-                superview!.backgroundColor = UIColor.whiteColor()
+                superview!.backgroundColor = UIColor.white
             }
         }
   
     }
 
-    //MARK: SHADOW ABOVE
-    func shadowAboveWithAmount(amount: CGFloat) {
-        layer.shadowColor = shadowColor.CGColor
+    //MARK: DROP SHADOW
+    func dropShadowWithAmount(_ amount: CGFloat) {
+        layer.shadowColor = shadowColor.cgColor
         layer.shadowOpacity = shadowOpacity
         layer.shadowOffset = CGSize(width: maxShadowOffset.width - (maxShadowOffset.width * amount),
             height: maxShadowOffset.height - (maxShadowOffset.height * amount))
@@ -233,7 +263,7 @@ class ForceButton: UIButton {
     }
     
     //MARK: FLAT SHADOW ABOVE
-    func flatShadowAboveWithAmount(amount:CGFloat){
+    func flatShadowWithAmount(_ amount:CGFloat){
         //Move On press
         updateShadowPathWithAmount(amount)
         if amount == 0.0{
@@ -244,22 +274,23 @@ class ForceButton: UIButton {
     func setupFlatShadow(){
         layer.addSublayer(flatShadowLayer)
         layer.addSublayer(buttonShapeLayer)
-        buttonShapeLayer.fillColor = bgColor.CGColor
+        buttonShapeLayer.fillColor = UIColor.lightGray.cgColor
         
        //addMovementAnimation() //This is where the problem lies
         flatShadowLayer.addSublayer(shadowShapeLayer)
+        self.frame.origin = CGPoint(x: buttonShapeLayer.frame.origin.x - maxShadowOffset.width, y: buttonShapeLayer.frame.origin.y - maxShadowOffset.height)
     }
     
     
-    func updateShadowPathWithAmount(amount:CGFloat){
+    func updateShadowPathWithAmount(_ amount:CGFloat){
         
-        backgroundColor = UIColor.clearColor()
+        backgroundColor = UIColor.clear
     
-        let newButtonPath = CGPathCreateWithRect(CGRect(x: bounds.origin.x + (maxShadowOffset.width * amount), y: bounds.origin.y + (maxShadowOffset.height * amount), width: bounds.width, height: bounds.height), nil)
+        let newButtonPath = CGPath(rect: CGRect(x: bounds.origin.x + (maxShadowOffset.width * amount), y: bounds.origin.y + (maxShadowOffset.height * amount), width: bounds.width, height: bounds.height), transform: nil)
         buttonShapeLayer.path = newButtonPath
         
         
-        let newShadowPath = CGPathCreateMutable()
+        let newShadowPath = CGMutablePath()
         //Button Corner
         let topLeftPointx: CGFloat = 0.0 + (maxShadowOffset.width * amount)
         let topLeftPointy: CGFloat = 0.0 + (maxShadowOffset.height * amount)
@@ -282,43 +313,44 @@ class ForceButton: UIButton {
         let bottomRightShadowPointx = bottomRightPointx + widthOffset
         let bottomRightShadowPointy = bottomRightPointy + heightOffset
         
+        
         if maxShadowOffset.width > 0 && maxShadowOffset.height > 0
         {
-            //print("Shadow on Bottom Right")
-            CGPathMoveToPoint(newShadowPath, nil, topRightPointx, topRightPointy) //Top Right
-            CGPathAddLineToPoint(newShadowPath, nil, topRightShadowPointx, topRightShadowPointy)//Shadow of Top Right
-            CGPathAddLineToPoint(newShadowPath, nil, bottomRightShadowPointx, bottomRightShadowPointy) //Shadow of Bottom Right
-            CGPathAddLineToPoint(newShadowPath, nil, bottomLeftShadowPointx, bottomLeftShadowPointy) //Shadow of Bottom Left
-            CGPathAddLineToPoint(newShadowPath, nil, bottomLeftPointx, bottomLeftPointy) //Bottom Left
-            CGPathAddLineToPoint(newShadowPath, nil, bottomRightPointx, bottomRightPointy) //Bottom Right
+            print("Shadow on Bottom Right")
+            newShadowPath.move(to: CGPoint(x: topRightPointx, y: topRightPointy))//Top Right
+            newShadowPath.addLine(to: CGPoint(x: topRightShadowPointx, y:topRightShadowPointy))//Shadow of Top Right)
+            newShadowPath.addLine(to: CGPoint(x: bottomRightShadowPointx, y:bottomRightShadowPointy)) //Shadow of Bottom Right
+            newShadowPath.addLine(to: CGPoint(x:  bottomLeftShadowPointx, y: bottomLeftShadowPointy)) //Shadow of Bottom Left
+            newShadowPath.addLine(to: CGPoint(x: bottomLeftPointx,y:  bottomLeftPointy)) //Bottom Left
+            newShadowPath.addLine(to: CGPoint(x: bottomRightPointx,y:  bottomRightPointy)) //Bottom Right
         }
         else if maxShadowOffset.width < 0 && maxShadowOffset.height < 0
         {
             print("Shadow on Top Left")
-            CGPathMoveToPoint(newShadowPath, nil, topRightPointx, topRightPointy) //Top Right
-            CGPathAddLineToPoint(newShadowPath, nil, topRightShadowPointx, topRightShadowPointy )//Shadow of Top Right
-            CGPathAddLineToPoint(newShadowPath, nil, topLeftShadowPointx, topLeftShadowPointy) //Shadow of Top Left
-            CGPathAddLineToPoint(newShadowPath, nil, bottomLeftShadowPointx, bottomLeftShadowPointy) //Shadow of Bottom Left
-            CGPathAddLineToPoint(newShadowPath, nil, bottomLeftPointx, bottomLeftPointy) //Bottom Left
-            CGPathAddLineToPoint(newShadowPath, nil, topLeftPointx, topLeftPointy) //Top Left
+            newShadowPath.move(to: CGPoint(x: topRightPointx, y: topRightPointy)) //Top Right
+            newShadowPath.addLine(to: CGPoint(x:  topRightShadowPointx,y:  topRightShadowPointy))//Shadow of Top Right
+            newShadowPath.addLine(to: CGPoint(x:  topLeftShadowPointx,y:  topLeftShadowPointy)) //Shadow of Top Left
+            newShadowPath.addLine(to: CGPoint(x:  bottomLeftShadowPointx, y: bottomLeftShadowPointy)) //Shadow of Bottom Left
+            newShadowPath.addLine(to: CGPoint(x:  bottomLeftPointx, y: bottomLeftPointy)) //Bottom Left
+            newShadowPath.addLine(to: CGPoint(x: topLeftPointx, y: topLeftPointy)) //Top Left
         }
         else if maxShadowOffset.width > 0 && maxShadowOffset.height < 0{
             print("Shadow on Top Right")
-            CGPathMoveToPoint(newShadowPath, nil, topRightPointx, topRightPointy) //Top Right
-            CGPathAddLineToPoint(newShadowPath, nil, bottomRightPointx, bottomRightPointy) //Bottomr Right
-            CGPathAddLineToPoint(newShadowPath, nil, bottomRightShadowPointx, bottomRightShadowPointy) //Shadow of Bottom Right
-            CGPathAddLineToPoint(newShadowPath, nil, topRightShadowPointx, topRightShadowPointy)//Shadow of Top Right
-            CGPathAddLineToPoint(newShadowPath, nil, topLeftShadowPointx, topLeftShadowPointy) //Shadow of Top Left
-            CGPathAddLineToPoint(newShadowPath, nil, topLeftPointx, topLeftPointy) //Top Left
+            newShadowPath.move(to: CGPoint(x: topRightPointx, y: topRightPointy))//Top Right
+            newShadowPath.addLine(to: CGPoint(x: bottomRightPointx, y: bottomRightPointy))//Bottomr Right
+            newShadowPath.addLine(to: CGPoint(x:  bottomRightShadowPointx,y:  bottomRightShadowPointy))//Shadow of Bottom Right
+            newShadowPath.addLine(to: CGPoint(x: topRightShadowPointx, y: topRightShadowPointy))//Shadow of Top Right
+            newShadowPath.addLine(to: CGPoint(x: topLeftShadowPointx, y: topLeftShadowPointy))//Shadow of Top Left
+            newShadowPath.addLine(to: CGPoint(x: topLeftPointx, y: topLeftPointy))//Top Left
         }
         else if maxShadowOffset.width < 0 && maxShadowOffset.height > 0{
             print("Shadow on Top Right")
-            CGPathMoveToPoint(newShadowPath, nil, topLeftPointx, topLeftPointx) //Top Left
-            CGPathAddLineToPoint(newShadowPath, nil, topLeftShadowPointx, topLeftShadowPointy) //Shadow of Top Left
-            CGPathAddLineToPoint(newShadowPath, nil, bottomLeftShadowPointx, bottomLeftShadowPointy) //Shadow of Bottom Left
-            CGPathAddLineToPoint(newShadowPath, nil, bottomRightShadowPointx, bottomRightShadowPointy) //Shadow of Bottom Right
-            CGPathAddLineToPoint(newShadowPath, nil, bottomRightPointx, bottomRightPointy) //Bottomr Right
-            CGPathAddLineToPoint(newShadowPath, nil, bottomLeftPointx, bottomLeftPointy) //Bottom Left
+            newShadowPath.move(to: CGPoint(x:topLeftPointx,y: topLeftPointx)) //Top Left
+            newShadowPath.addLine(to: CGPoint(x: topLeftShadowPointx, y: topLeftShadowPointy))//Shadow of Top Left
+            newShadowPath.addLine(to: CGPoint(x: bottomLeftShadowPointx, y: bottomLeftShadowPointy))//Shadow of Bottom Left
+            newShadowPath.addLine(to: CGPoint(x: bottomRightShadowPointx, y: bottomRightShadowPointy))//Shadow of Bottom Right
+            newShadowPath.addLine(to: CGPoint(x: bottomRightPointx, y: bottomRightPointy))//Bottomr Right
+            newShadowPath.addLine(to: CGPoint(x: bottomLeftPointx, y: bottomLeftPointy))//Bottom Left
         }
         shadowShapeLayer.path = newShadowPath
     }
@@ -332,14 +364,14 @@ class ForceButton: UIButton {
         animationY.toValue = CGFloat(maxShadowOffset.height)
         animationX.duration = 1
         animationY.duration = 1
-        layer.addAnimation(animationX, forKey: "translationAnimationX")
-        layer.addAnimation(animationY, forKey: "translationAnimationY")
+        layer.add(animationX, forKey: "translationAnimationX")
+        layer.add(animationY, forKey: "translationAnimationY")
         layer.speed = 0
     }
     
     
-    //MARK: SHADOW BELOW
-    func shadowBelowWithAmount(amount: CGFloat) {
+    //MARK: INNER SHADOW
+    func innerShadowWithAmount(_ amount: CGFloat) {
         if maxShadowOffset.width > 0
         {
            innerShadowLayer.frame.size.width = frame.size.width + maxShadowOffset.width * 5
@@ -362,13 +394,13 @@ class ForceButton: UIButton {
         
         // Shadow path (1pt ring around bounds)
         let path = UIBezierPath(rect: innerShadowLayer.bounds.insetBy(dx: -(amount * maxShadowRadius), dy: -(amount * maxShadowRadius)))
-        let cutout = UIBezierPath(rect: innerShadowLayer.bounds).bezierPathByReversingPath()
-        path.appendPath(cutout)
-        innerShadowLayer.shadowPath = path.CGPath
+        let cutout = UIBezierPath(rect: innerShadowLayer.bounds).reversing()
+        path.append(cutout)
+        innerShadowLayer.shadowPath = path.cgPath
         innerShadowLayer.masksToBounds = true
         
         // Shadow properties
-        innerShadowLayer.shadowColor = UIColor(white: 0, alpha: 1).CGColor
+        innerShadowLayer.shadowColor = UIColor(white: 0, alpha: 1).cgColor
         innerShadowLayer.shadowOffset = CGSize(width: 0.0, height: 0.0)
         innerShadowLayer.shadowOpacity = 1
         innerShadowLayer.shadowRadius = (maxShadowRadius * amount) + minShadowRadius
@@ -379,9 +411,8 @@ class ForceButton: UIButton {
         
     }
     
-    func darkenColorWithAmount(amount:CGFloat)
+    func darkenColorWithAmount(_ amount:CGFloat)
     {
-        
         //Make the Button darker the lower it gets
         let rgbValue = bgColor.rgb()
         var redValue = CGFloat(rgbValue!.red)
@@ -393,6 +424,106 @@ class ForceButton: UIButton {
         let alphaValue = CGFloat(rgbValue!.alpha)
         backgroundColor = UIColor(red: redValue, green: greenValue, blue: blueValue, alpha: alphaValue)
     }
+    //MARK: SIZE SCALE
+    
+    
+    func scaleWithAmount(amount:CGFloat, location:String){
+        print("Button has \(layer.sublayers?.count) sublayers")
+        if layer.sublayers?.count != nil{
+            for layer in layer.sublayers!{
+                layer.removeFromSuperlayer()
+            }
+        }
+        let colorLayer = CALayer()
+        colorLayer.frame = bounds
+        colorLayer.backgroundColor = bgColor.cgColor
+        
+        backgroundColor = UIColor.clear
+        print(amount)
+        let finalSize = CGSize(width: frame.size.width/2, height: frame.size.height/2)
+        let newWidth = frame.size.width - (finalSize.width * amount)
+        print(newWidth)
+        let newHeight = frame.size.height - (finalSize.height * amount)
+        colorLayer.frame.size = CGSize(width: newWidth, height: newHeight)
+       layer.addSublayer(colorLayer)
+        if location == "topRight"{
+            colorLayer.frame.origin.x += (frame.size.width - newWidth)
+        }
+        
+        
+
+    }
+    
+    
+    //MARK: Depth OF FIELD
+    func blurWithAmount(_ amount:CGFloat){
+        self.removeBlur()
+       self.blurView(amount * 5)
+        print("Blurring")
+    }
+    
+    
+    //MARK: COLOR
+    //Light gray is 170 170 170
+    //Dark gray is 85 85 85
+    func lightenColorWithAmount(_ amount:CGFloat)
+    {
+        //Make the Button darker the lower it gets
+        let lightGrayrgb = UIColor.lightGray.rgb()
+        let darkGrayrgb = UIColor.darkGray.rgb()
+        
+        let redValueDiff = CGFloat(lightGrayrgb!.red - darkGrayrgb!.red) * amount
+        let greenValueDiff = CGFloat(lightGrayrgb!.green - darkGrayrgb!.green) * amount
+        let blueValueDiff = CGFloat(lightGrayrgb!.blue - darkGrayrgb!.blue) * amount
+        
+        
+        let finalRed = CGFloat(darkGrayrgb!.red) + redValueDiff
+        let finalGreen = CGFloat(darkGrayrgb!.green) + greenValueDiff
+        let finalBlue = CGFloat(darkGrayrgb!.blue) + blueValueDiff
+        
+        print("R:\(finalRed) G:\(finalGreen) B:\(finalBlue)")
+    
+    
+        backgroundColor = UIColor(red: finalRed/255, green: finalGreen/255, blue: finalBlue/255, alpha: 1)
+    }
+    
+    
+    //MARK: PROGRESS BAR
+    func setupTopBar()
+    {
+        topBarView.frame.size.width = self.frame.size.width
+        topBarView.barColor = UIColor.lightGray
+        topBarView.barThickness = self.frame.size.height / 5
+        topBarView.frame.size.height = topBarView.barThickness
+        topBarView.frame.origin = CGPoint(x: 0, y: 0)
+        topBarView.trackColor = bgColor
+        self.addSubview(topBarView)
+    }
+    
+    func topBarWithAmount(_ amount:CGFloat){
+        topBarView.progressValue = amount * 100
+        topBarView.calcualtePercentage()
+        print(topBarView.progressValue)
+    }
+    
+    //MARK: CIRCLE PROGRESS
+    func setupCircle()
+    {
+        ringProgressView.frame = self.bounds
+        ringProgressView.backgroundColor = .clear
+        backgroundColor = .clear
+        ringProgressView.updateProgressCircle(0.0)
+        ringProgressView.resetProgressCircle()
+        ringProgressView.circleColor = bgColor
+        ringProgressView.progressColor = UIColor.lightGray
+        ringProgressView.lineWidth = 20
+        self.addSubview(ringProgressView)
+    }
+    
+    func circleWithAmount(_ amount:CGFloat){
+        let amountFloat = Float(amount) * 100
+        ringProgressView.updateProgressCircle(amountFloat)
+    }
     
     //MARK: PINCUSHION
     
@@ -402,20 +533,20 @@ class ForceButton: UIButton {
         pinImageView.frame.size = frame.size
         //pinImageView.image = backgroundImage
         pinImageView.image = UIImage(named: "checkerboard.jpg")
-        pinImageView.contentMode = .ScaleToFill
+        pinImageView.contentMode = .scaleToFill
         addSubview(pinImageView)
 
         print("Setting up pincushion")
         
         UIGraphicsBeginImageContext(bounds.size)
-        layer.renderInContext(UIGraphicsGetCurrentContext()!)
+        layer.render(in: UIGraphicsGetCurrentContext()!)
         let viewImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
-        backgroundImage = viewImage
+        backgroundImage = viewImage!
 
     }
     
-    func pincushionDistortionWithAmount(amount:CGFloat, position:CGPoint){
+    func pincushionDistortionWithAmount(_ amount:CGFloat, position:CGPoint){
         
         print(position)
         //1 Remove All Subviews
@@ -435,11 +566,11 @@ class ForceButton: UIButton {
         filter.setValue(-1 * amount, forKey:"inputScale")//Positive creates a bump, negative an indent
  
         // 4
-        var newImage:UIImage = UIImage(CIImage: filter.outputImage!)
+        var newImage:UIImage = UIImage(ciImage: filter.outputImage!)
         //ORIGINAL
         //let newCGIImage = CIContext(options:nil).createCGImage(filter.outputImage!, fromRect:filter.outputImage!.extent)
 
-        let newCGIImage = CIContext(options:nil).createCGImage(filter.outputImage!, fromRect:pinImageView.frame)
+        let newCGIImage = CIContext(options:nil).createCGImage(filter.outputImage!, from:pinImageView.frame)
         //print(filter.outputImage!.extent)
 
         let imageViewWidth = pinImageView.frame.size.width
@@ -450,7 +581,7 @@ class ForceButton: UIButton {
         if imageWidth > imageViewWidth || imageHeight > imageViewHeight{
             //print("Image is wider than ImageView")
             //Code to crop image to fit in imageView
-            newImage = cropToBounds(newCGIImage, width: imageViewWidth, height: imageViewHeight)
+            newImage = cropToBounds(newCGIImage!, width: imageViewWidth, height: imageViewHeight)
         }
         else
         {
@@ -464,135 +595,102 @@ class ForceButton: UIButton {
        // print(pinImageView.layer.frame)
     }
     
-    func cropToBounds(image: CGImageRef, width: CGFloat, height: CGFloat) -> UIImage {
+    func cropToBounds(_ image: CGImage, width: CGFloat, height: CGFloat) -> UIImage {
         
-        let contextImage: UIImage = UIImage(CGImage: image)
+        let contextImage: UIImage = UIImage(cgImage: image)
         let contextSize: CGSize = pinImageView.bounds.size//contextImage.size
         
-        var posX: CGFloat = 0.0
-        var posY: CGFloat = 0.0
-        var cgwidth: CGFloat = CGFloat(width)
-        var cgheight: CGFloat = CGFloat(height)
-        
-        // See what size is longer and create the center off of that
-        /*
-        if contextSize.width > contextSize.height {
-            posX = 0//((contextSize.width - contextSize.height) / 2)
-            posY = 0
-            cgwidth = contextSize.height
-            cgheight = contextSize.height
-            
-        } else {
-            posX = 0
-            posY = ((contextSize.height - contextSize.width) / 2)
-            cgwidth = contextSize.width
-            cgheight = contextSize.width
-        }
-*/
+        let posX: CGFloat = 0.0
+        let posY: CGFloat = 0.0
+
         //ORIGINAL
         //let rect: CGRect = CGRectMake(posX, posY, cgwidth, cgheight)
 
         //MY VERSION
-        let rect: CGRect = CGRectMake(posX, posY, contextSize.width, contextSize.height)
+        let rect: CGRect = CGRect(x: posX, y: posY, width: contextSize.width, height: contextSize.height)
         //print("Rect:\(rect)")
         // Create bitmap image from context using the rect
-        let imageRef: CGImageRef = CGImageCreateWithImageInRect(contextImage.CGImage, rect)!
+        let imageRef: CGImage = contextImage.cgImage!.cropping(to: rect)!
         
         // Create a new image based on the imageRef and rotate back to the original orientation
-        let imageUI: UIImage = UIImage(CGImage: imageRef)
-        let upsideDownImage: UIImage = UIImage(CGImage: imageRef, scale: imageUI.scale, orientation: imageUI.imageOrientation)
-        let FinalImage = UIImage(CGImage: upsideDownImage.CGImage!, scale: 1.0, orientation: .DownMirrored)
+        let imageUI: UIImage = UIImage(cgImage: imageRef)
+        let upsideDownImage: UIImage = UIImage(cgImage: imageRef, scale: imageUI.scale, orientation: imageUI.imageOrientation)
+        let FinalImage = UIImage(cgImage: upsideDownImage.cgImage!, scale: 1.0, orientation: .downMirrored)
 
         
         return FinalImage
     }
-    
-    //MARK: CIRCLE BUTTON
-    func setupCircle()
-    {
-        
-        ringProgressView.frame = self.bounds
-        ringProgressView.backgroundColor = .clearColor()
-        backgroundColor = .clearColor()
-        ringProgressView.updateProgressCircle(0.0)
-        ringProgressView.resetProgressCircle()
-        ringProgressView.circleColor = UIColor.cyanColor()
-        ringProgressView.progressColor = UIColor.blueColor()
-        ringProgressView.lineWidth = 20
-        self.addSubview(ringProgressView)
-        
 
-    }
     
-    func circleWithAmount(amount:CGFloat){
-        let amountFloat = Float(amount) * 100
-        ringProgressView.updateProgressCircle(amountFloat)
-    }
-    
-    //MARK: TOP BORDER
-    func setupTopBar()
-    {
-        topBarView.frame.size.width = self.frame.size.width
-        topBarView.barColor = UIColor.blueColor()
-        topBarView.barThickness = 20
-        topBarView.frame.size.height = topBarView.barThickness
-        topBarView.frame.origin = CGPointMake(0, 0)
-        topBarView.trackColor = UIColor.cyanColor()
-        self.addSubview(topBarView)
-    }
-    
-    func topBarWithAmount(amount:CGFloat){
-        topBarView.progressValue = amount * 100
-        topBarView.calcualtePercentage()
-        print(topBarView.progressValue)
-
-    }
+ 
     
     //MARK: BARN DOOR
     func setupBarnDoor()
     {
-        leftDoorLayer.frame = CGRectMake(0, 0, frame.size.width/2, frame.size.height)
-        leftDoorLayer.backgroundColor = UIColor.cyanColor().CGColor
+        
+        //Add black background
+//        let backgroundLayer = CALayer()
+//        backgroundLayer.frame = bounds
+//        backgroundLayer.backgroundColor = UIColor.black.cgColor
+//        layer.addSublayer(backgroundLayer)
+        
+        print("Setting Up Barn Door")
+        leftDoorLayer.frame = CGRect(x: frame.origin.x - frame.size.width/4, y: frame.origin.y, width: frame.size.width/2, height: frame.size.height)
+        leftDoorLayer.backgroundColor = bgColor.cgColor
         layer.addSublayer(leftDoorLayer)
-        rightDoorLayer.frame = CGRectMake(frame.size.width*0.5, 0, frame.size.width/2, frame.size.height)
-        rightDoorLayer.backgroundColor = UIColor.cyanColor().CGColor
+       
+       
+        rightDoorLayer.frame = CGRect(x: frame.size.width/2 + frame.size.width/4, y: 0, width: frame.size.width/2, height: frame.size.height)
+        rightDoorLayer.backgroundColor = bgColor.cgColor
         layer.addSublayer(rightDoorLayer)
-        backgroundColor = UIColor.blueColor()
+        
+        
+        print("Left:\(leftDoorLayer.frame) Right:\(rightDoorLayer.frame) Self:\(frame)")
+ 
+        
+       
+      
+        
+        let darkColor = UIColor.black.cgColor
+        let lightColor = UIColor.clear.cgColor
+        
         
         let leftGradient = CAGradientLayer()
         leftGradient.frame = leftDoorLayer.bounds
-        leftGradient.startPoint = CGPointZero;
-        leftGradient.endPoint = CGPointMake(1, 0);
-        let darkColor = UIColor.blackColor().CGColor
-        let lightColor = UIColor.clearColor().CGColor
-        leftGradient.colors = [lightColor,darkColor,]
+        leftGradient.startPoint = CGPoint.zero;
+        leftGradient.endPoint = CGPoint(x: 1, y: 0);
+        
+        leftGradient.colors = [lightColor,darkColor]
+        leftGradient.opacity = 0
         
         let rightGradient = CAGradientLayer()
         rightGradient.frame = rightDoorLayer.bounds
-        rightGradient.startPoint = CGPointZero
-        rightGradient.endPoint = CGPointMake(1, 0)
+        rightGradient.startPoint = CGPoint.zero
+        rightGradient.endPoint = CGPoint(x: 1, y: 0)
     
         rightGradient.colors = [darkColor,lightColor]
-        
+        rightGradient.opacity = 0
+ 
         leftDoorLayer.addSublayer(leftGradient)
         rightDoorLayer.addSublayer(rightGradient)
-        titleLabel!.text = "Hello World!"
-        
+ 
     }
     
-    func barnDoorWithAmount(amount:CGFloat){
+    func barnDoorWithAmount(_ amount:CGFloat){
+        backgroundColor = UIColor.black
+        
         let gradientLeft = leftDoorLayer.sublayers![0]
         let gradientRight = rightDoorLayer.sublayers![0]
         gradientLeft.opacity = Float(amount)
         gradientRight.opacity = Float(amount)
-        
+       
         var transformLeft = CATransform3DIdentity
         var transformRight = CATransform3DIdentity
         transformLeft.m34 = 1.0 / -250
         transformRight.m34 = 1.0 / -250
         let pi = CGFloat(M_PI)
-        leftDoorLayer.anchorPoint = CGPointMake(0,0.5)
-        rightDoorLayer.anchorPoint = CGPointMake(1,0.5)
+        leftDoorLayer.anchorPoint = CGPoint(x: 0,y: 0.5)
+        rightDoorLayer.anchorPoint = CGPoint(x: 1,y: 0.5)
 
         //transform = CATransform3DRotate(transform, (90/amount)/100 * (pi / 180.0), 0, 1, 0.0)
         transformLeft = CATransform3DRotate(transformLeft, amount * pi/2, 0, 1, 0.0)
@@ -605,5 +703,6 @@ class ForceButton: UIButton {
 
     
 }
+
 
 

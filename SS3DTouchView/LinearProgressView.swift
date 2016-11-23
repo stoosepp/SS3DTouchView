@@ -15,8 +15,8 @@ protocol LinearProgressDelegate: class {
 @IBDesignable
 class LinearProgressView: UIView {
     
-    @IBInspectable var barColor: UIColor = UIColor.greenColor()
-    @IBInspectable var trackColor: UIColor = UIColor.yellowColor()
+    @IBInspectable var barColor: UIColor = UIColor.green
+    @IBInspectable var trackColor: UIColor = UIColor.yellow
     @IBInspectable var barThickness: CGFloat = 10
     @IBInspectable var barPadding: CGFloat = 0
     @IBInspectable var trackPadding: CGFloat = 6 {
@@ -41,35 +41,35 @@ class LinearProgressView: UIView {
     
     weak var delegate: LinearProgressDelegate?
     
-    override func drawRect(rect: CGRect) {
+    override func draw(_ rect: CGRect) {
         drawProgressView()
     }
     
     // Draws the progress bar and track
     func drawProgressView() {
         let context = UIGraphicsGetCurrentContext()
-        CGContextSaveGState(context)
+        context?.saveGState()
         
         // Progres Bar Track
-        CGContextSetStrokeColorWithColor(context, trackColor.CGColor)
-        CGContextBeginPath(context)
-        CGContextSetLineWidth(context, barThickness + trackPadding)
-        CGContextMoveToPoint(context, barPadding, frame.size.height / 2)
-        CGContextAddLineToPoint(context, frame.size.width - barPadding, frame.size.height / 2)
+        context?.setStrokeColor(trackColor.cgColor)
+        context?.beginPath()
+        context?.setLineWidth(barThickness + trackPadding)
+        context?.move(to: CGPoint(x: barPadding, y: frame.size.height / 2))
+        context?.addLine(to: CGPoint(x: frame.size.width - barPadding, y: frame.size.height / 2))
         //CGContextSetLineCap(context, CGLineCap.Round)
         
-        CGContextStrokePath(context)
+        context?.strokePath()
         
         // Progress Bar
-        CGContextSetStrokeColorWithColor(context, barColor.CGColor)
-        CGContextSetLineWidth(context, barThickness)
-        CGContextBeginPath(context)
-        CGContextMoveToPoint(context, barPadding, frame.size.height / 2)
-        CGContextAddLineToPoint(context, barPadding + calcualtePercentage() , frame.size.height / 2)
+        context?.setStrokeColor(barColor.cgColor)
+        context?.setLineWidth(barThickness)
+        context?.beginPath()
+        context?.move(to: CGPoint(x: barPadding, y: frame.size.height / 2))
+        context?.addLine(to: CGPoint(x: barPadding + calcualtePercentage(), y: frame.size.height / 2))
         //CGContextSetLineCap(context, CGLineCap.Round)
-        CGContextStrokePath(context)
+        context?.strokePath()
         
-        CGContextRestoreGState(context)
+        context?.restoreGState()
     }
     
     /**
